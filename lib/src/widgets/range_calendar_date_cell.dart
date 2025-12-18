@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:calendar_kit/src/widgets/custom_button.dart';
+
+import 'package:calendar_kit/src/widgets/material_wrapper.dart';
+import 'package:calendar_kit/src/models/calendar_style_config.dart';
 
 class RangeCalendarDateCell extends StatelessWidget {
   const RangeCalendarDateCell({
@@ -12,18 +14,7 @@ class RangeCalendarDateCell extends StatelessWidget {
     required this.isToday,
     required this.isPast,
     required this.onTap,
-    this.startDateDecoration,
-    this.endDateDecoration,
-    this.inRangeDecoration,
-    this.rangeSegmentColor,
-    this.startDateRadius,
-    this.endDateRadius,
-    this.regularTextStyle,
-    this.startDateTextStyle,
-    this.endDateTextStyle,
-    this.inRangeTextStyle,
-    this.todayTextStyle,
-    this.pastTextStyle,
+    this.styleConfig,
   });
 
   final DateTime date;
@@ -34,18 +25,7 @@ class RangeCalendarDateCell extends StatelessWidget {
   final bool isToday;
   final bool isPast;
   final void Function()? onTap;
-  final BoxDecoration? startDateDecoration;
-  final BoxDecoration? endDateDecoration;
-  final BoxDecoration? inRangeDecoration;
-  final Color? rangeSegmentColor;
-  final BorderRadius? startDateRadius;
-  final BorderRadius? endDateRadius;
-  final TextStyle? regularTextStyle;
-  final TextStyle? startDateTextStyle;
-  final TextStyle? endDateTextStyle;
-  final TextStyle? inRangeTextStyle;
-  final TextStyle? todayTextStyle;
-  final TextStyle? pastTextStyle;
+  final RangeCalendarStyleConfig? styleConfig;
 
   bool _shouldClipFromBothSides() {
     final previousDay = date.subtract(const Duration(days: 1));
@@ -77,108 +57,70 @@ class RangeCalendarDateCell extends StatelessWidget {
   }
 
   BorderRadius? _getContainerBorderRadius() {
+    final config = styleConfig ?? RangeCalendarStyleConfig.defaultStyle();
+    final bothSidesRadius = config.rangeSegmentBothSidesRadius ?? 50;
+    final leftRadius = config.rangeSegmentLeftRadius ?? 50;
+    final rightRadius = config.rangeSegmentRightRadius ?? 50;
+
     if (_shouldClipFromBothSides()) {
-      return BorderRadius.circular(50);
+      return BorderRadius.circular(bothSidesRadius);
     } else if (_shouldClipFromLeft()) {
-      return const BorderRadius.only(topLeft: Radius.circular(50), bottomLeft: Radius.circular(50));
+      return BorderRadius.only(
+        topLeft: Radius.circular(leftRadius),
+        bottomLeft: Radius.circular(leftRadius),
+      );
     } else if (_shouldClipFromRight()) {
-      return const BorderRadius.only(topRight: Radius.circular(50), bottomRight: Radius.circular(50));
+      return BorderRadius.only(
+        topRight: Radius.circular(rightRadius),
+        bottomRight: Radius.circular(rightRadius),
+      );
     } else if (isInRange) {
       return null;
     }
-    return BorderRadius.circular(50);
+    return BorderRadius.circular(bothSidesRadius);
   }
 
   @override
   Widget build(BuildContext context) {
-    final defaultStartDateDecoration = BoxDecoration(
-      color: const Color(0xffE8EAF6),
-      border: Border.all(color: const Color(0xff556EE6), width: 2),
-      borderRadius: BorderRadius.circular(46),
-    );
+    final config = styleConfig ?? RangeCalendarStyleConfig.defaultStyle();
 
-    final defaultEndDateDecoration = BoxDecoration(
-      color: const Color(0xff556EE6),
-      borderRadius: BorderRadius.circular(46),
-    );
-
-    final defaultStartDateRadius = BorderRadius.circular(46);
-    final defaultEndDateRadius = BorderRadius.circular(46);
-
-    final defaultRegularTextStyle = const TextStyle(
-      fontWeight: FontWeight.w500,
-      color: Color(0xff9797A1),
-    );
-
-    final defaultStartDateTextStyle = const TextStyle(
-      fontWeight: FontWeight.w500,
-      color: Color(0xff000000),
-    );
-
-    final defaultEndDateTextStyle = const TextStyle(
-      fontWeight: FontWeight.w500,
-      color: Color(0xffFFFFFF),
-    );
-
-    final defaultInRangeTextStyle = const TextStyle(
-      fontWeight: FontWeight.w500,
-      color: Color(0xff000000),
-    );
-
-    final defaultTodayTextStyle = const TextStyle(
-      fontWeight: FontWeight.w500,
-      color: Color(0xff000000),
-    );
-
-    final defaultPastTextStyle = const TextStyle(
-      fontWeight: FontWeight.w500,
-      color: Color(0xff000000),
-    );
-
-    final defaultRangeSegmentColor = const Color(0xffE8EAF6);
-
-    final finalStartDateDecoration = startDateDecoration ?? defaultStartDateDecoration;
-    final finalEndDateDecoration = endDateDecoration ?? defaultEndDateDecoration;
-    final finalStartDateRadius = startDateRadius ?? defaultStartDateRadius;
-    final finalEndDateRadius = endDateRadius ?? defaultEndDateRadius;
-
-    TextStyle textStyle;
+    TextStyle? textStyle;
     if (isStartDate) {
-      textStyle = startDateTextStyle ?? defaultStartDateTextStyle;
+      textStyle = config.startDateTextStyle;
     } else if (isEndDate) {
-      textStyle = endDateTextStyle ?? defaultEndDateTextStyle;
+      textStyle = config.endDateTextStyle;
     } else if (isInRange) {
-      textStyle = inRangeTextStyle ?? defaultInRangeTextStyle;
+      textStyle = config.inRangeDateTextStyle;
     } else if (isToday) {
-      textStyle = todayTextStyle ?? defaultTodayTextStyle;
+      textStyle = config.todayDateTextStyle;
     } else if (isPast) {
-      textStyle = pastTextStyle ?? defaultPastTextStyle;
+      textStyle = config.pastDateTextStyle;
     } else {
-      textStyle = regularTextStyle ?? defaultRegularTextStyle;
+      textStyle = config.regularDateTextStyle;
     }
+
+    final materialRadius = config.materialWrapperRadius ?? 46;
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 2),
       margin: const EdgeInsets.symmetric(vertical: 2),
       decoration: BoxDecoration(
-        color: isStartDate || isInRange || isEndDate
-            ? (rangeSegmentColor ?? defaultRangeSegmentColor)
-            : Colors.transparent,
+        color: isStartDate || isInRange || isEndDate ? config.rangeSegmentColor : Colors.transparent,
         borderRadius: _getContainerBorderRadius(),
       ),
       child: Container(
         decoration: isStartDate
-            ? finalStartDateDecoration
+            ? config.startDateDecoration
             : isEndDate
-                ? finalEndDateDecoration
+                ? config.endDateDecoration
                 : null,
-        child: CustomButton(
+        child: MaterialWrapper(
           color: Colors.transparent,
           radius: isStartDate
-              ? finalStartDateRadius
+              ? config.startDateRadius
               : isEndDate
-                  ? finalEndDateRadius
-                  : BorderRadius.circular(46),
+                  ? config.endDateRadius
+                  : BorderRadius.circular(materialRadius),
           onTap: onTap,
           child: Center(
             child: Text(

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+
 import 'package:calendar_kit/src/utils/calendar_utils.dart';
 import 'package:calendar_kit/src/models/date_range.dart';
+
+import 'package:calendar_kit/src/widgets/range_date_display_field.dart';
 import 'package:calendar_kit/src/widgets/month_picker_dialog.dart';
 import 'package:calendar_kit/src/widgets/calendar_navigation_header.dart';
 import 'package:calendar_kit/src/widgets/range_calendar_date_cell.dart';
-import 'package:calendar_kit/src/widgets/date_display_field.dart';
 import 'package:calendar_kit/src/models/calendar_style_config.dart';
 
 class RangeCalendar extends StatefulWidget {
@@ -53,15 +55,47 @@ class _RangeCalendarState extends State<RangeCalendar> {
       selectedMonth = now.month;
     }
 
-    _styleConfig = widget.styleConfig ?? RangeCalendarStyleConfig.defaultStyle();
+    _styleConfig = _mergeWithDefaults(widget.styleConfig);
   }
 
   @override
   void didUpdateWidget(RangeCalendar oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.styleConfig != oldWidget.styleConfig) {
-      _styleConfig = widget.styleConfig ?? RangeCalendarStyleConfig.defaultStyle();
+      _styleConfig = _mergeWithDefaults(widget.styleConfig);
     }
+  }
+
+  RangeCalendarStyleConfig _mergeWithDefaults(RangeCalendarStyleConfig? config) {
+    final defaultConfig = RangeCalendarStyleConfig.defaultStyle();
+    if (config == null) return defaultConfig;
+    return defaultConfig.copyWith(
+      backgroundColor: config.backgroundColor,
+      calendarRadius: config.calendarRadius,
+      headerYearTextStyle: config.headerYearTextStyle,
+      headerMonthTextStyle: config.headerMonthTextStyle,
+      headerIconColor: config.headerIconColor,
+      materialWrapperRadius: config.materialWrapperRadius,
+      rangeSegmentLeftRadius: config.rangeSegmentLeftRadius,
+      rangeSegmentRightRadius: config.rangeSegmentRightRadius,
+      rangeSegmentBothSidesRadius: config.rangeSegmentBothSidesRadius,
+      startDateDecoration: config.startDateDecoration,
+      endDateDecoration: config.endDateDecoration,
+      inRangeDateDecoration: config.inRangeDateDecoration,
+      rangeSegmentColor: config.rangeSegmentColor,
+      startDateRadius: config.startDateRadius,
+      endDateRadius: config.endDateRadius,
+      dateDisplayFieldDecoration: config.dateDisplayFieldDecoration,
+      dateDisplayFieldSelectedDecoration: config.dateDisplayFieldSelectedDecoration,
+      regularDateTextStyle: config.regularDateTextStyle,
+      startDateTextStyle: config.startDateTextStyle,
+      endDateTextStyle: config.endDateTextStyle,
+      inRangeDateTextStyle: config.inRangeDateTextStyle,
+      todayDateTextStyle: config.todayDateTextStyle,
+      pastDateTextStyle: config.pastDateTextStyle,
+      dateDisplayFieldTextStyle: config.dateDisplayFieldTextStyle,
+      dateDisplayFieldSelectedTextStyle: config.dateDisplayFieldSelectedTextStyle,
+    );
   }
 
   bool _canNavigateToMonth(int year, int month) {
@@ -208,8 +242,11 @@ class _RangeCalendarState extends State<RangeCalendar> {
     final today = CalendarUtils.getToday();
 
     return Container(
-      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16)),
-      padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: _styleConfig.backgroundColor,
+        borderRadius: BorderRadius.circular(_styleConfig.calendarRadius ?? 16),
+      ),
+      padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -226,6 +263,7 @@ class _RangeCalendarState extends State<RangeCalendar> {
             canNavigateToNextYear: _canNavigateToNextYear,
             canNavigateToPreviousMonth: _canNavigateToPreviousMonth,
             canNavigateToNextMonth: _canNavigateToNextMonth,
+            styleConfig: _styleConfig,
           ),
           const SizedBox(height: 8),
           Padding(
@@ -265,18 +303,7 @@ class _RangeCalendarState extends State<RangeCalendar> {
                     isToday: isToday,
                     isPast: isPast,
                     onTap: isSelectable ? () => _onDateTap(date) : null,
-                    startDateDecoration: _styleConfig.startDateDecoration,
-                    endDateDecoration: _styleConfig.endDateDecoration,
-                    inRangeDecoration: _styleConfig.inRangeDateDecoration,
-                    rangeSegmentColor: _styleConfig.rangeSegmentColor,
-                    startDateRadius: _styleConfig.startDateRadius,
-                    endDateRadius: _styleConfig.endDateRadius,
-                    regularTextStyle: _styleConfig.regularDateTextStyle,
-                    startDateTextStyle: _styleConfig.startDateTextStyle,
-                    endDateTextStyle: _styleConfig.endDateTextStyle,
-                    inRangeTextStyle: _styleConfig.inRangeDateTextStyle,
-                    todayTextStyle: _styleConfig.todayDateTextStyle,
-                    pastTextStyle: _styleConfig.pastDateTextStyle,
+                    styleConfig: _styleConfig,
                   ),
                 );
               },
@@ -286,24 +313,18 @@ class _RangeCalendarState extends State<RangeCalendar> {
           Row(
             children: [
               Expanded(
-                child: DateDisplayField(
+                child: RangeDateDisplayField(
                   text: startDate != null ? CalendarUtils.formatDate(startDate!) : 'Начальная дата',
                   isSelected: startDate != null,
-                  decoration: _styleConfig.dateDisplayFieldDecoration,
-                  selectedDecoration: _styleConfig.dateDisplayFieldSelectedDecoration,
-                  textStyle: _styleConfig.dateDisplayFieldTextStyle,
-                  selectedTextStyle: _styleConfig.dateDisplayFieldSelectedTextStyle,
+                  styleConfig: _styleConfig,
                 ),
               ),
               const SizedBox(width: 8),
               Expanded(
-                child: DateDisplayField(
+                child: RangeDateDisplayField(
                   text: endDate != null ? CalendarUtils.formatDate(endDate!) : 'Конечная дата',
                   isSelected: endDate != null,
-                  decoration: _styleConfig.dateDisplayFieldDecoration,
-                  selectedDecoration: _styleConfig.dateDisplayFieldSelectedDecoration,
-                  textStyle: _styleConfig.dateDisplayFieldTextStyle,
-                  selectedTextStyle: _styleConfig.dateDisplayFieldSelectedTextStyle,
+                  styleConfig: _styleConfig,
                 ),
               ),
             ],

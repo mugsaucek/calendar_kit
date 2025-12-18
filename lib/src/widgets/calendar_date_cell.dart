@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:calendar_kit/src/widgets/custom_button.dart';
+
+import 'package:calendar_kit/src/widgets/material_wrapper.dart';
+import 'package:calendar_kit/src/models/calendar_style_config.dart';
 
 class CalendarDateCell extends StatelessWidget {
   const CalendarDateCell({
@@ -9,12 +11,7 @@ class CalendarDateCell extends StatelessWidget {
     required this.isToday,
     required this.isPast,
     required this.onTap,
-    this.regularDecoration,
-    this.selectedDecoration,
-    this.regularTextStyle,
-    this.selectedTextStyle,
-    this.todayTextStyle,
-    this.pastTextStyle,
+    this.styleConfig,
   });
 
   final DateTime date;
@@ -22,65 +19,34 @@ class CalendarDateCell extends StatelessWidget {
   final bool isToday;
   final bool isPast;
   final void Function()? onTap;
-  final BoxDecoration? regularDecoration;
-  final BoxDecoration? selectedDecoration;
-  final TextStyle? regularTextStyle;
-  final TextStyle? selectedTextStyle;
-  final TextStyle? todayTextStyle;
-  final TextStyle? pastTextStyle;
+  final CalendarStyleConfig? styleConfig;
 
   @override
   Widget build(BuildContext context) {
-    final defaultRegularDecoration = BoxDecoration(
-      color: Colors.transparent,
-      borderRadius: BorderRadius.circular(46),
-    );
-
-    final defaultSelectedDecoration = BoxDecoration(
-      color: const Color(0xff556EE6),
-      borderRadius: BorderRadius.circular(46),
-    );
-
-    final defaultRegularTextStyle = const TextStyle(
-      fontWeight: FontWeight.w500,
-      color: Color(0xff9797A1),
-    );
-
-    final defaultSelectedTextStyle = const TextStyle(
-      fontWeight: FontWeight.w500,
-      color: Color(0xffFFFFFF),
-    );
-
-    final defaultTodayTextStyle = const TextStyle(
-      fontWeight: FontWeight.w500,
-      color: Color(0xff000000),
-    );
-
-    final defaultPastTextStyle = const TextStyle(
-      fontWeight: FontWeight.w500,
-      color: Color(0xff000000),
-    );
+    final config = styleConfig ?? CalendarStyleConfig.defaultStyle();
 
     final decoration = isSelected
-        ? (selectedDecoration ?? defaultSelectedDecoration)
-        : (regularDecoration ?? defaultRegularDecoration);
+        ? config.selectedDateDecoration
+        : config.regularDateDecoration;
 
-    TextStyle textStyle;
+    TextStyle? textStyle;
     if (isSelected) {
-      textStyle = selectedTextStyle ?? defaultSelectedTextStyle;
+      textStyle = config.selectedDateTextStyle;
     } else if (isToday) {
-      textStyle = todayTextStyle ?? defaultTodayTextStyle;
+      textStyle = config.todayDateTextStyle;
     } else if (isPast) {
-      textStyle = pastTextStyle ?? defaultPastTextStyle;
+      textStyle = config.pastDateTextStyle;
     } else {
-      textStyle = regularTextStyle ?? defaultRegularTextStyle;
+      textStyle = config.regularDateTextStyle;
     }
+
+    final radius = config.materialWrapperRadius ?? 46;
 
     return Container(
       decoration: decoration,
-      child: CustomButton(
+      child: MaterialWrapper(
         color: Colors.transparent,
-        radius: BorderRadius.circular(46),
+        radius: BorderRadius.circular(radius),
         onTap: onTap,
         child: Center(
           child: Text(

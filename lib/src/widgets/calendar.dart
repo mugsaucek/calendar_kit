@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:calendar_kit/src/utils/calendar_utils.dart';
+
 import 'package:calendar_kit/src/widgets/calendar_navigation_header.dart';
 import 'package:calendar_kit/src/widgets/calendar_date_cell.dart';
 import 'package:calendar_kit/src/widgets/date_display_field.dart';
@@ -39,15 +40,38 @@ class _CalendarState extends State<Calendar> {
     selectedDate = widget.initialDate ?? DateTime.now();
     selectedYear = selectedDate.year;
     selectedMonth = selectedDate.month;
-    _styleConfig = widget.styleConfig ?? CalendarStyleConfig.defaultStyle();
+    _styleConfig = _mergeWithDefaults(widget.styleConfig);
   }
 
   @override
   void didUpdateWidget(Calendar oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.styleConfig != oldWidget.styleConfig) {
-      _styleConfig = widget.styleConfig ?? CalendarStyleConfig.defaultStyle();
+      _styleConfig = _mergeWithDefaults(widget.styleConfig);
     }
+  }
+
+  CalendarStyleConfig _mergeWithDefaults(CalendarStyleConfig? config) {
+    final defaultConfig = CalendarStyleConfig.defaultStyle();
+    if (config == null) return defaultConfig;
+    return defaultConfig.copyWith(
+      backgroundColor: config.backgroundColor,
+      calendarRadius: config.calendarRadius,
+      headerYearTextStyle: config.headerYearTextStyle,
+      headerMonthTextStyle: config.headerMonthTextStyle,
+      headerIconColor: config.headerIconColor,
+      materialWrapperRadius: config.materialWrapperRadius,
+      regularDateDecoration: config.regularDateDecoration,
+      selectedDateDecoration: config.selectedDateDecoration,
+      dateDisplayFieldDecoration: config.dateDisplayFieldDecoration,
+      dateDisplayFieldSelectedDecoration: config.dateDisplayFieldSelectedDecoration,
+      regularDateTextStyle: config.regularDateTextStyle,
+      selectedDateTextStyle: config.selectedDateTextStyle,
+      todayDateTextStyle: config.todayDateTextStyle,
+      pastDateTextStyle: config.pastDateTextStyle,
+      dateDisplayFieldTextStyle: config.dateDisplayFieldTextStyle,
+      dateDisplayFieldSelectedTextStyle: config.dateDisplayFieldSelectedTextStyle,
+    );
   }
 
   bool _canNavigateToMonth(int year, int month) {
@@ -167,7 +191,10 @@ class _CalendarState extends State<Calendar> {
         selectedDate.year == today.year && selectedDate.month == today.month && selectedDate.day == today.day;
 
     return Container(
-      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16)),
+      decoration: BoxDecoration(
+        color: _styleConfig.backgroundColor,
+        borderRadius: BorderRadius.circular(_styleConfig.calendarRadius ?? 16),
+      ),
       padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -185,6 +212,7 @@ class _CalendarState extends State<Calendar> {
             canNavigateToNextYear: _canNavigateToNextYear,
             canNavigateToPreviousMonth: _canNavigateToPreviousMonth,
             canNavigateToNextMonth: _canNavigateToNextMonth,
+            styleConfig: _styleConfig,
           ),
           const SizedBox(height: 8),
           Padding(
@@ -217,12 +245,7 @@ class _CalendarState extends State<Calendar> {
                     isToday: isToday,
                     isPast: isPast,
                     onTap: isSelectable ? () => _selectDate(date) : null,
-                    regularDecoration: _styleConfig.regularDateDecoration,
-                    selectedDecoration: _styleConfig.selectedDateDecoration,
-                    regularTextStyle: _styleConfig.regularDateTextStyle,
-                    selectedTextStyle: _styleConfig.selectedDateTextStyle,
-                    todayTextStyle: _styleConfig.todayDateTextStyle,
-                    pastTextStyle: _styleConfig.pastDateTextStyle,
+                    styleConfig: _styleConfig,
                   ),
                 );
               },
@@ -232,10 +255,7 @@ class _CalendarState extends State<Calendar> {
           DateDisplayField(
             text: CalendarUtils.formatDate(selectedDate),
             isSelected: isTodaySelected,
-            decoration: _styleConfig.dateDisplayFieldDecoration,
-            selectedDecoration: _styleConfig.dateDisplayFieldDecoration,
-            textStyle: _styleConfig.dateDisplayFieldTextStyle,
-            selectedTextStyle: _styleConfig.dateDisplayFieldSelectedTextStyle,
+            styleConfig: _styleConfig,
           ),
         ],
       ),

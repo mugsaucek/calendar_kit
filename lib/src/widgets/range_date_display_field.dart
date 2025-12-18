@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:calendar_kit/src/models/calendar_style_config.dart';
 
-class DateDisplayField extends StatelessWidget {
-  const DateDisplayField({
+class RangeDateDisplayField extends StatelessWidget {
+  const RangeDateDisplayField({
     super.key,
     required this.text,
     required this.isSelected,
@@ -12,11 +12,11 @@ class DateDisplayField extends StatelessWidget {
 
   final String text;
   final bool isSelected;
-  final CalendarStyleConfig? styleConfig;
+  final RangeCalendarStyleConfig? styleConfig;
 
   @override
   Widget build(BuildContext context) {
-    final config = styleConfig ?? CalendarStyleConfig.defaultStyle();
+    final config = styleConfig ?? RangeCalendarStyleConfig.defaultStyle();
 
     final currentDecoration = isSelected
         ? config.dateDisplayFieldSelectedDecoration
