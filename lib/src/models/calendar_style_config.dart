@@ -116,17 +116,25 @@ class CalendarStyleConfig {
       headerYearTextStyle: headerYearTextStyle ?? this.headerYearTextStyle,
       headerMonthTextStyle: headerMonthTextStyle ?? this.headerMonthTextStyle,
       headerIconColor: headerIconColor ?? this.headerIconColor,
-      materialWrapperRadius: materialWrapperRadius ?? this.materialWrapperRadius,
-      regularDateDecoration: regularDateDecoration ?? this.regularDateDecoration,
-      selectedDateDecoration: selectedDateDecoration ?? this.selectedDateDecoration,
-      dateDisplayFieldDecoration: dateDisplayFieldDecoration ?? this.dateDisplayFieldDecoration,
-      dateDisplayFieldSelectedDecoration: dateDisplayFieldSelectedDecoration ?? this.dateDisplayFieldSelectedDecoration,
+      materialWrapperRadius:
+          materialWrapperRadius ?? this.materialWrapperRadius,
+      regularDateDecoration:
+          regularDateDecoration ?? this.regularDateDecoration,
+      selectedDateDecoration:
+          selectedDateDecoration ?? this.selectedDateDecoration,
+      dateDisplayFieldDecoration:
+          dateDisplayFieldDecoration ?? this.dateDisplayFieldDecoration,
+      dateDisplayFieldSelectedDecoration: dateDisplayFieldSelectedDecoration ??
+          this.dateDisplayFieldSelectedDecoration,
       regularDateTextStyle: regularDateTextStyle ?? this.regularDateTextStyle,
-      selectedDateTextStyle: selectedDateTextStyle ?? this.selectedDateTextStyle,
+      selectedDateTextStyle:
+          selectedDateTextStyle ?? this.selectedDateTextStyle,
       todayDateTextStyle: todayDateTextStyle ?? this.todayDateTextStyle,
       pastDateTextStyle: pastDateTextStyle ?? this.pastDateTextStyle,
-      dateDisplayFieldTextStyle: dateDisplayFieldTextStyle ?? this.dateDisplayFieldTextStyle,
-      dateDisplayFieldSelectedTextStyle: dateDisplayFieldSelectedTextStyle ?? this.dateDisplayFieldSelectedTextStyle,
+      dateDisplayFieldTextStyle:
+          dateDisplayFieldTextStyle ?? this.dateDisplayFieldTextStyle,
+      dateDisplayFieldSelectedTextStyle: dateDisplayFieldSelectedTextStyle ??
+          this.dateDisplayFieldSelectedTextStyle,
     );
   }
 }
@@ -293,26 +301,35 @@ class RangeCalendarStyleConfig {
       headerYearTextStyle: headerYearTextStyle ?? this.headerYearTextStyle,
       headerMonthTextStyle: headerMonthTextStyle ?? this.headerMonthTextStyle,
       headerIconColor: headerIconColor ?? this.headerIconColor,
-      materialWrapperRadius: materialWrapperRadius ?? this.materialWrapperRadius,
-      rangeSegmentLeftRadius: rangeSegmentLeftRadius ?? this.rangeSegmentLeftRadius,
-      rangeSegmentRightRadius: rangeSegmentRightRadius ?? this.rangeSegmentRightRadius,
-      rangeSegmentBothSidesRadius: rangeSegmentBothSidesRadius ?? this.rangeSegmentBothSidesRadius,
+      materialWrapperRadius:
+          materialWrapperRadius ?? this.materialWrapperRadius,
+      rangeSegmentLeftRadius:
+          rangeSegmentLeftRadius ?? this.rangeSegmentLeftRadius,
+      rangeSegmentRightRadius:
+          rangeSegmentRightRadius ?? this.rangeSegmentRightRadius,
+      rangeSegmentBothSidesRadius:
+          rangeSegmentBothSidesRadius ?? this.rangeSegmentBothSidesRadius,
       startDateDecoration: startDateDecoration ?? this.startDateDecoration,
       endDateDecoration: endDateDecoration ?? this.endDateDecoration,
-      inRangeDateDecoration: inRangeDateDecoration ?? this.inRangeDateDecoration,
+      inRangeDateDecoration:
+          inRangeDateDecoration ?? this.inRangeDateDecoration,
       rangeSegmentColor: rangeSegmentColor ?? this.rangeSegmentColor,
       startDateRadius: startDateRadius ?? this.startDateRadius,
       endDateRadius: endDateRadius ?? this.endDateRadius,
-      dateDisplayFieldDecoration: dateDisplayFieldDecoration ?? this.dateDisplayFieldDecoration,
-      dateDisplayFieldSelectedDecoration: dateDisplayFieldSelectedDecoration ?? this.dateDisplayFieldSelectedDecoration,
+      dateDisplayFieldDecoration:
+          dateDisplayFieldDecoration ?? this.dateDisplayFieldDecoration,
+      dateDisplayFieldSelectedDecoration: dateDisplayFieldSelectedDecoration ??
+          this.dateDisplayFieldSelectedDecoration,
       regularDateTextStyle: regularDateTextStyle ?? this.regularDateTextStyle,
       startDateTextStyle: startDateTextStyle ?? this.startDateTextStyle,
       endDateTextStyle: endDateTextStyle ?? this.endDateTextStyle,
       inRangeDateTextStyle: inRangeDateTextStyle ?? this.inRangeDateTextStyle,
       todayDateTextStyle: todayDateTextStyle ?? this.todayDateTextStyle,
       pastDateTextStyle: pastDateTextStyle ?? this.pastDateTextStyle,
-      dateDisplayFieldTextStyle: dateDisplayFieldTextStyle ?? this.dateDisplayFieldTextStyle,
-      dateDisplayFieldSelectedTextStyle: dateDisplayFieldSelectedTextStyle ?? this.dateDisplayFieldSelectedTextStyle,
+      dateDisplayFieldTextStyle:
+          dateDisplayFieldTextStyle ?? this.dateDisplayFieldTextStyle,
+      dateDisplayFieldSelectedTextStyle: dateDisplayFieldSelectedTextStyle ??
+          this.dateDisplayFieldSelectedTextStyle,
     );
   }
 }

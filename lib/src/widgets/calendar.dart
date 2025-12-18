@@ -64,13 +64,15 @@ class _CalendarState extends State<Calendar> {
       regularDateDecoration: config.regularDateDecoration,
       selectedDateDecoration: config.selectedDateDecoration,
       dateDisplayFieldDecoration: config.dateDisplayFieldDecoration,
-      dateDisplayFieldSelectedDecoration: config.dateDisplayFieldSelectedDecoration,
+      dateDisplayFieldSelectedDecoration:
+          config.dateDisplayFieldSelectedDecoration,
       regularDateTextStyle: config.regularDateTextStyle,
       selectedDateTextStyle: config.selectedDateTextStyle,
       todayDateTextStyle: config.todayDateTextStyle,
       pastDateTextStyle: config.pastDateTextStyle,
       dateDisplayFieldTextStyle: config.dateDisplayFieldTextStyle,
-      dateDisplayFieldSelectedTextStyle: config.dateDisplayFieldSelectedTextStyle,
+      dateDisplayFieldSelectedTextStyle:
+          config.dateDisplayFieldSelectedTextStyle,
     );
   }
 
@@ -78,14 +80,16 @@ class _CalendarState extends State<Calendar> {
     final targetDate = DateTime(year, month, 1);
 
     if (widget.minDate != null) {
-      final minMonthStart = DateTime(widget.minDate!.year, widget.minDate!.month, 1);
+      final minMonthStart =
+          DateTime(widget.minDate!.year, widget.minDate!.month, 1);
       if (targetDate.isBefore(minMonthStart)) {
         return false;
       }
     }
 
     if (widget.maxDate != null) {
-      final maxMonthStart = DateTime(widget.maxDate!.year, widget.maxDate!.month, 1);
+      final maxMonthStart =
+          DateTime(widget.maxDate!.year, widget.maxDate!.month, 1);
       if (targetDate.isAfter(maxMonthStart)) {
         return false;
       }
@@ -187,8 +191,9 @@ class _CalendarState extends State<Calendar> {
   Widget build(BuildContext context) {
     final dates = CalendarUtils.generateDates(selectedYear, selectedMonth);
     final today = CalendarUtils.getToday();
-    final isTodaySelected =
-        selectedDate.year == today.year && selectedDate.month == today.month && selectedDate.day == today.day;
+    final isTodaySelected = selectedDate.year == today.year &&
+        selectedDate.month == today.month &&
+        selectedDate.day == today.day;
 
     return Container(
       decoration: BoxDecoration(
@@ -231,9 +236,12 @@ class _CalendarState extends State<Calendar> {
                 final date = dates[index];
                 if (date == null) return const SizedBox.shrink();
 
-                final isSelected =
-                    date.year == selectedDate.year && date.month == selectedDate.month && date.day == selectedDate.day;
-                final isToday = date.year == today.year && date.month == today.month && date.day == today.day;
+                final isSelected = date.year == selectedDate.year &&
+                    date.month == selectedDate.month &&
+                    date.day == selectedDate.day;
+                final isToday = date.year == today.year &&
+                    date.month == today.month &&
+                    date.day == today.day;
                 final isPast = date.isBefore(today);
                 final isSelectable = _isDateSelectable(date);
 

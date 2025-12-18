@@ -65,16 +65,20 @@ class MonthPickerDialog {
                           final monthIndex = index + 1;
                           final isSelected = selectedMonth == monthIndex;
                           final isSelectable = isMonthSelectable(monthIndex);
-                          final isPastMonth = monthIndex <= today.month && selectedYear == today.year;
+                          final isPastMonth = monthIndex <= today.month &&
+                              selectedYear == today.year;
 
                           return Opacity(
                             opacity: isSelectable ? 1.0 : 0.3,
                             child: InkWell(
                               borderRadius: index == 0
-                                  ? const BorderRadius.only(topLeft: Radius.circular(12), topRight: Radius.circular(12))
+                                  ? const BorderRadius.only(
+                                      topLeft: Radius.circular(12),
+                                      topRight: Radius.circular(12))
                                   : index == 11
                                       ? const BorderRadius.only(
-                                          bottomLeft: Radius.circular(12), bottomRight: Radius.circular(12))
+                                          bottomLeft: Radius.circular(12),
+                                          bottomRight: Radius.circular(12))
                                       : null,
                               onTap: isSelectable
                                   ? () {
@@ -84,16 +88,21 @@ class MonthPickerDialog {
                                   : null,
                               child: Container(
                                 width: double.infinity,
-                                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 12, horizontal: 16),
                                 decoration: BoxDecoration(
-                                  color: isSelected ? const Color(0xffE8EAF6) : Colors.transparent,
+                                  color: isSelected
+                                      ? const Color(0xffE8EAF6)
+                                      : Colors.transparent,
                                 ),
                                 child: Text(
                                   monthNames[index],
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w400,
-                                    color: isPastMonth ? const Color(0xff000000) : const Color(0xff79747E),
+                                    color: isPastMonth
+                                        ? const Color(0xff000000)
+                                        : const Color(0xff79747E),
                                   ),
                                 ),
                               ),

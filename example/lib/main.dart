@@ -36,9 +36,7 @@ class HomePage extends StatelessWidget {
                     initialDate: DateTime(2025, 10, 31),
                     minDate: DateTime(2024, 8, 1),
                     maxDate: DateTime(2025, 12, 31),
-                    onDateChanged: (value) {
-                      print(value.toString());
-                    },
+                    onDateChanged: (value) {},
                   ),
                 ),
                 SizedBox(height: 32),
@@ -47,13 +45,7 @@ class HomePage extends StatelessWidget {
                     initialRange: DateRange(DateTime(2025, 10, 20), DateTime(2025, 10, 31)),
                     minDate: DateTime(2024, 8, 1),
                     maxDate: DateTime(2025, 12, 31),
-                    onRangeChanged: (value) {
-                      if (value != null) {
-                        print('${value.start},${value.end}');
-                      } else {
-                        print('range selection is not completed');
-                      }
-                    },
+                    onRangeChanged: (value) {},
                   ),
                 ),
                 SizedBox(height: 32),
@@ -91,9 +83,7 @@ class HomePage extends StatelessWidget {
                         fontWeight: FontWeight.w700,
                       ),
                     ),
-                    onDateChanged: (value) {
-                      print(value.toString());
-                    },
+                    onDateChanged: (value) {},
                   ),
                 ),
                 SizedBox(height: 32),
@@ -128,13 +118,7 @@ class HomePage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8),
                           border: Border.all(color: Colors.red, width: 3),
                         )),
-                    onRangeChanged: (value) {
-                      if (value != null) {
-                        print('${value.start},${value.end}');
-                      } else {
-                        print('range selection is not completed');
-                      }
-                    },
+                    onRangeChanged: (value) {},
                   ),
                 ),
                 SizedBox(height: 256),

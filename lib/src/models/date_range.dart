@@ -14,7 +14,10 @@ class DateRange {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is DateRange && runtimeType == other.runtimeType && start == other.start && end == other.end;
+      other is DateRange &&
+          runtimeType == other.runtimeType &&
+          start == other.start &&
+          end == other.end;
 
   @override
   int get hashCode => start.hashCode ^ end.hashCode;

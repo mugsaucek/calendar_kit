@@ -1,6 +1,9 @@
 name: calendar_kit
-description: customizable calendar kit
-version: 0.0.1
+description: A customizable Flutter calendar package with support for single date and date range selection. Features include flexible styling, date constraints and navigation.
+version: 0.0.2
+homepage: https://github.com/mugsaucek/calendar_kit
+repository: https://github.com/mugsaucek/calendar_kit
+issue_tracker: https://github.com/mugsaucek/calendar_kit/issues
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
@@ -17,3 +20,9 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+topics:
+   - calendar
+   - date-picker
+   - date-range
+   - widgets

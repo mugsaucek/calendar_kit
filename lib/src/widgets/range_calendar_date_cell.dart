@@ -31,7 +31,9 @@ class RangeCalendarDateCell extends StatelessWidget {
     final previousDay = date.subtract(const Duration(days: 1));
     final nextDay = date.add(const Duration(days: 1));
 
-    return (isInRange && date.weekday == 7 && previousDay.month != date.month) ||
+    return (isInRange &&
+            date.weekday == 7 &&
+            previousDay.month != date.month) ||
         (isInRange && date.weekday == 1 && nextDay.month != date.month) ||
         (isStartDate && nextDay.weekday == 1) ||
         (isStartDate && !hasEndDate) ||
@@ -105,7 +107,9 @@ class RangeCalendarDateCell extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 2),
       margin: const EdgeInsets.symmetric(vertical: 2),
       decoration: BoxDecoration(
-        color: isStartDate || isInRange || isEndDate ? config.rangeSegmentColor : Colors.transparent,
+        color: isStartDate || isInRange || isEndDate
+            ? config.rangeSegmentColor
+            : Colors.transparent,
         borderRadius: _getContainerBorderRadius(),
       ),
       child: Container(

@@ -111,7 +111,8 @@ class CalendarNavigationHeader extends StatelessWidget {
               radius: BorderRadius.circular(_monthTapRadius),
               onTap: onMonthTap,
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 10.0),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 4.0, horizontal: 10.0),
                 child: Text(
                   monthNames[selectedMonth - 1],
                   style: _monthTextStyle,

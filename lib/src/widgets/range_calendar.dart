@@ -66,7 +66,8 @@ class _RangeCalendarState extends State<RangeCalendar> {
     }
   }
 
-  RangeCalendarStyleConfig _mergeWithDefaults(RangeCalendarStyleConfig? config) {
+  RangeCalendarStyleConfig _mergeWithDefaults(
+      RangeCalendarStyleConfig? config) {
     final defaultConfig = RangeCalendarStyleConfig.defaultStyle();
     if (config == null) return defaultConfig;
     return defaultConfig.copyWith(
@@ -86,7 +87,8 @@ class _RangeCalendarState extends State<RangeCalendar> {
       startDateRadius: config.startDateRadius,
       endDateRadius: config.endDateRadius,
       dateDisplayFieldDecoration: config.dateDisplayFieldDecoration,
-      dateDisplayFieldSelectedDecoration: config.dateDisplayFieldSelectedDecoration,
+      dateDisplayFieldSelectedDecoration:
+          config.dateDisplayFieldSelectedDecoration,
       regularDateTextStyle: config.regularDateTextStyle,
       startDateTextStyle: config.startDateTextStyle,
       endDateTextStyle: config.endDateTextStyle,
@@ -94,7 +96,8 @@ class _RangeCalendarState extends State<RangeCalendar> {
       todayDateTextStyle: config.todayDateTextStyle,
       pastDateTextStyle: config.pastDateTextStyle,
       dateDisplayFieldTextStyle: config.dateDisplayFieldTextStyle,
-      dateDisplayFieldSelectedTextStyle: config.dateDisplayFieldSelectedTextStyle,
+      dateDisplayFieldSelectedTextStyle:
+          config.dateDisplayFieldSelectedTextStyle,
     );
   }
 
@@ -102,14 +105,16 @@ class _RangeCalendarState extends State<RangeCalendar> {
     final targetDate = DateTime(year, month, 1);
 
     if (widget.minDate != null) {
-      final minMonthStart = DateTime(widget.minDate!.year, widget.minDate!.month, 1);
+      final minMonthStart =
+          DateTime(widget.minDate!.year, widget.minDate!.month, 1);
       if (targetDate.isBefore(minMonthStart)) {
         return false;
       }
     }
 
     if (widget.maxDate != null) {
-      final maxMonthStart = DateTime(widget.maxDate!.year, widget.maxDate!.month, 1);
+      final maxMonthStart =
+          DateTime(widget.maxDate!.year, widget.maxDate!.month, 1);
       if (targetDate.isAfter(maxMonthStart)) {
         return false;
       }
@@ -271,7 +276,8 @@ class _RangeCalendarState extends State<RangeCalendar> {
             child: GridView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 7, childAspectRatio: 1.0),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 7, childAspectRatio: 1.0),
               itemCount: dates.length,
               itemBuilder: (context, index) {
                 final date = dates[index];
@@ -288,7 +294,9 @@ class _RangeCalendarState extends State<RangeCalendar> {
                     date.day == endDate!.day;
 
                 final isInRange = _isDateBetweenRange(date);
-                final isToday = date.year == today.year && date.month == today.month && date.day == today.day;
+                final isToday = date.year == today.year &&
+                    date.month == today.month &&
+                    date.day == today.day;
                 final isPast = date.isBefore(today);
                 final isSelectable = _isDateSelectable(date);
 
@@ -314,7 +322,9 @@ class _RangeCalendarState extends State<RangeCalendar> {
             children: [
               Expanded(
                 child: RangeDateDisplayField(
-                  text: startDate != null ? CalendarUtils.formatDate(startDate!) : 'Начальная дата',
+                  text: startDate != null
+                      ? CalendarUtils.formatDate(startDate!)
+                      : 'Начальная дата',
                   isSelected: startDate != null,
                   styleConfig: _styleConfig,
                 ),
@@ -322,7 +332,9 @@ class _RangeCalendarState extends State<RangeCalendar> {
               const SizedBox(width: 8),
               Expanded(
                 child: RangeDateDisplayField(
-                  text: endDate != null ? CalendarUtils.formatDate(endDate!) : 'Конечная дата',
+                  text: endDate != null
+                      ? CalendarUtils.formatDate(endDate!)
+                      : 'Конечная дата',
                   isSelected: endDate != null,
                   styleConfig: _styleConfig,
                 ),
